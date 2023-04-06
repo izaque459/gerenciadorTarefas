@@ -1,15 +1,15 @@
-//const TaskDAO = require('./taskDAO.js');
-const Tarefa = require('../Tarefa/tarefa.js');
+//const TaskDAO = require('./TarefaDAO.js');
+const Tarefa = require('../Tarefa/Tarefa.js');
 
-class ListaTarefa {
+class ListaTarefas {
   constructor() {
-    this.taskDAO = new TaskDAO(); // instancia um objeto TaskDAO
+    this.TarefaDAO = new TaferaDAO(); // instancia um objeto TarefaDAO
     this.tarefas = []; // cria uma lista vazia de tarefas
   }
 
   adicionar(descricao, data) {
     const tarefa = new Tarefa(descricao, data); // cria um novo objeto Tarefa
-    this.taskDAO.adicionar(tarefa) // persiste a tarefa no banco de dados
+    this.TarefaDao.adicionar(tarefa) // persiste a tarefa no banco de dados
       .then(() => {
         this.tarefas.push(tarefa); // adiciona a tarefa na lista de tarefas
         console.log('Tarefa adicionada com sucesso!');
@@ -18,13 +18,13 @@ class ListaTarefa {
   }
 
   atualizar(tarefa) {
-    this.taskDAO.atualizar(tarefa) // atualiza a tarefa no banco de dados
+    this.TarefaDao.atualizar(tarefa) // atualiza a tarefa no banco de dados
       .then(() => console.log('Tarefa atualizada com sucesso!'))
       .catch((error) => console.error(error));
   }
 
   remover(tarefa) {
-    this.taskDAO.remover(tarefa) // remove a tarefa do banco de dados
+    this.TarefaDAO.remover(tarefa) // remove a tarefa do banco de dados
       .then(() => {
         const index = this.tarefas.indexOf(tarefa);
         if (index !== -1) {
@@ -36,7 +36,7 @@ class ListaTarefa {
   }
 
   listar() {
-    this.taskDAO.listar() // recupera todas as tarefas do banco de dados
+    this.TarefaDAO.listar() // recupera todas as tarefas do banco de dados
       .then((tarefas) => {
         this.tarefas = tarefas; // atualiza a lista de tarefas
         console.log('Lista de tarefas:');
@@ -46,4 +46,4 @@ class ListaTarefa {
   }
 }
 
-module.exports = ListaTarefa;
+module.exports = ListaTarefas;
