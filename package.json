@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/izaque459/gerenciadorTarefas/issues"
   },
-  "homepage": "https://github.com/izaque459/gerenciadorTarefas#readme"
+  "homepage": "https://github.com/izaque459/gerenciadorTarefas#readme",
+  "dependencies": {
+    "commander": "^10.0.0"
+  }
 }
