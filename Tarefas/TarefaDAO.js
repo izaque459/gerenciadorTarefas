@@ -61,7 +61,7 @@ async adicionar(descricao, data) {
     };
 
     try {
-      const result = await this.client.query(query);
+      const result = await this.cliente.query(query);
       return result.rows[0];
     } catch (err) {
       console.error('Erro ao remover tarefa', err);
@@ -76,7 +76,7 @@ async adicionar(descricao, data) {
     };
 
     try {
-      const result = await this.client.query(query);
+      const result = await this.cliente.query(query);
       return result.rows[0];
     } catch (err) {
       console.error('Erro ao buscar tarefa', err);

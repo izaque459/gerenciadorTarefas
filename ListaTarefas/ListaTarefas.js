@@ -25,16 +25,20 @@ class ListaTarefas {
       .catch((error) => console.error(error));
   }
 
-  removerTarefa(tarefa) {
-    this.TarefaDAO.remover(tarefa) // remove a tarefa do banco de dados
+  removerTarefa(id) {
+    this.TarefaDAO.remover(id) // remove a tarefa do banco de dados
       .then(() => {
-        const index = this.tarefas.indexOf(tarefa);
+        const index = this.tarefas.findIndex((tarefa) => tarefa.id === id);
         if (index !== -1) {
           this.tarefas.splice(index, 1); // remove a tarefa da lista de tarefas
           console.log('Tarefa removida da lista com sucesso!');
         }
+        process.exit();
       })
-      .catch((error) => console.error(error));
+      .catch((error)=>{
+        console.error(error);
+        process.exit()
+      });
   }
 
   listarTarefas() {

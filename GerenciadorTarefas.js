@@ -35,7 +35,6 @@ program
   .description('Remove uma tarefa existente')
   .action((id) => {
     gerenciador.removerTarefa(id);
-    console.log('Tarefa removida com sucesso!');
   });
 
 program.parse(process.argv);
