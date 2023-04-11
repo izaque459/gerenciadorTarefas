@@ -25,7 +25,7 @@ class TarefaDAO {
     });
   }
 //criar tarefa ou salvar
-  async adicionarTarefa(tarefa) {
+  async adicionar(tarefa) {
     const { descricao, vencimento } = tarefa;
     const cliente = await this.pool.connect();
     try {
@@ -45,7 +45,7 @@ class TarefaDAO {
     }
   }
 
-  async atualizarTarefa(tarefa) {
+  async atualizar(tarefa) {
     const { id, descricao, vencimento, conclusao } = tarefa;
     const cliente = await this.pool.connect();
     try {
@@ -63,7 +63,7 @@ class TarefaDAO {
     }
   }
 
-  async removerTarefa(id) {
+  async remover(id) {
     const cliente = await this.pool.connect();
     try {
       await cliente.query('BEGIN');
@@ -77,7 +77,7 @@ class TarefaDAO {
     }
   }
 
-  async lerTarefa(id) {
+  async ler(id) {
     const cliente = await this.pool.connect();
     try {
       const result = await cliente.query('SELECT * FROM tarefas WHERE id=$1', [id]);
@@ -89,7 +89,7 @@ class TarefaDAO {
     }
   }
 
-  async listarTarefas() {
+  async listar() {
     const cliente = await this.pool.connect();
     try {
       const result = await cliente.query('SELECT * FROM tarefas ORDER BY vencimento ASC');

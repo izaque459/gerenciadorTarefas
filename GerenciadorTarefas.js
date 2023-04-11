@@ -6,11 +6,11 @@ const program = new Command();
 
 program
   .version('1.0.0')
-  .descricao('Gerenciador de tarefas');
+  .description('Gerenciador de tarefas');
 
 program
   .command('listar')
-  .descricao('Lista todas as tarefas')
+  .description('Lista todas as tarefas')
   .action(() => {
     const tarefas = gerenciador.listarTarefas();
     console.log(tarefas);
@@ -18,7 +18,7 @@ program
 
 program
   .command('adicionar <descricao> <data>')
-  .descricao('Adiciona uma nova tarefa')
+  .description('Adiciona uma nova tarefa')
   .action((descricao, data) => {
     gerenciador.adicionarTarefa(descricao, data);
     console.log('Tarefa adicionada com sucesso!');
@@ -26,7 +26,7 @@ program
 
 program
   .command('editar <id> <descricao> <data>')
-  .descricao('Edita uma tarefa existente')
+  .description('Edita uma tarefa existente')
   .action((id, descricao, data) => {
     gerenciador.atualizarTarefa(id, descricao, data);
     console.log('Tarefa editada com sucesso!');
@@ -34,7 +34,7 @@ program
 
 program
   .command('remover <id>')
-  .descricao('Remove uma tarefa existente')
+  .description('Remove uma tarefa existente')
   .action((id) => {
     gerenciador.removerTarefa(id);
     console.log('Tarefa removida com sucesso!');
