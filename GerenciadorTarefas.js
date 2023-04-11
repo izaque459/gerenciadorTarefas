@@ -7,7 +7,7 @@ const program = new Command();
 program
   .version('1.0.0')
   .descricao('Gerenciador de tarefas');
-/*
+
 program
   .command('listar')
   .descricao('Lista todas as tarefas')
@@ -39,5 +39,5 @@ program
     gerenciador.removerTarefa(id);
     console.log('Tarefa removida com sucesso!');
   });
-*/
+
 program.parse(process.argv);
