@@ -1,28 +1,23 @@
 
 
-const { Pool } = require('pg');
+const pg = require('pg');
 
-const pool = new Pool({
+const config = {
     user: 'usuariobanco',
     host: 'localhost',
-    database: 'databaseTarefas',
+    database: 'DatabaseTarefas',
     password: '789A$ek',
-    port: 5432,
-  });
+    port: 5432
+  };
   
-  pool.connect((err, client, release) => {
-    if (err) {
-      return console.error('Erro ao conectar ao banco de dados', err);
-    }
-    console.log('Conexão estabelecida com sucesso!');
-    release();
-  });
+  
 
 class TarefaDAO {
   constructor() {
-    this.pool = new Pool({
-      conexao: 'postgres://user:password@localhost:5432/database',
-    });
+    
+    this.cliente = new pg.Client(config);
+
+    this.cliente.connect();
   }
 //criar tarefa ou salvar
   async adicionar(tarefa) {
@@ -64,16 +59,17 @@ class TarefaDAO {
   }
 
   async remover(id) {
-    const cliente = await this.pool.connect();
+    const query = {
+      text: 'DELETE FROM tarefas WHERE id = $1',
+      values: [id]
+    };
+
     try {
-      await cliente.query('BEGIN');
-      await cliente.query('DELETE FROM tarefas WHERE id=$1', [id]);
-      await cliente.query('COMMIT');
-    } catch (e) {
-      await cliente.query('ROLLBACK');
-      throw e;
-    } finally {
-      cliente.release();
+      const result = await this.client.query(query);
+      return result.rows[0];
+    } catch (err) {
+      console.error('Erro ao remover tarefa', err);
+      return null;
     }
   }
 
@@ -90,14 +86,16 @@ class TarefaDAO {
   }
 
   async listar() {
-    const cliente = await this.pool.connect();
+    const query = {
+      text: 'SELECT * FROM tarefas ORDER BY vencimento ASC'
+    };
+
     try {
-      const result = await cliente.query('SELECT * FROM tarefas ORDER BY vencimento ASC');
+      const result = await this.cliente.query(query);
       return result.rows;
-    } catch (e) {
-      throw e;
-    } finally {
-      cliente.release();
+    } catch (err) {
+      console.error('Erro ao listar tarefas', err);
+      return null;
     }
   }
 }

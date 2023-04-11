@@ -11,9 +11,8 @@ program
 program
   .command('listar')
   .description('Lista todas as tarefas')
-  .action(() => {
-    const tarefas = gerenciador.listarTarefas();
-    console.log(tarefas);
+  .action(() => { 
+    gerenciador.listarTarefas();
   });
 
 program

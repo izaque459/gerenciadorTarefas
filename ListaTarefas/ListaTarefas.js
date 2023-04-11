@@ -9,7 +9,7 @@ class ListaTarefas {
 
   adicionarTarefa(descricao, data) {
     const tarefa = new Tarefa(descricao, data); // cria um novo objeto Tarefa
-    this.TarefaDao.adicionar(tarefa) // persiste a tarefa no banco de dados
+    this.TarefaDAO.adicionar(tarefa) // persiste a tarefa no banco de dados
       .then(() => {
         this.tarefas.push(tarefa); // adiciona a tarefa na lista de tarefas
         console.log('Tarefa adicionada a lista com sucesso!');
@@ -18,7 +18,7 @@ class ListaTarefas {
   }
 
   atualizarTarefa(tarefa) {
-    this.TarefaDao.atualizar(tarefa) // atualiza a tarefa no banco de dados
+    this.TarefaDAO.atualizar(tarefa) // atualiza a tarefa no banco de dados
       .then(() => console.log('Tarefa da lista atualizada com sucesso!'))
       .catch((error) => console.error(error));
   }
@@ -36,14 +36,23 @@ class ListaTarefas {
   }
 
   listarTarefas() {
-    this.TarefaDAO.listar() // recupera todas as tarefas do banco de dados
-      .then((tarefas) => {
-        this.tarefas = tarefas; // atualiza a lista de tarefas
-        console.log('Lista de tarefas:');
-        this.tarefas.forEach((tarefa) => console.log(tarefa));
-      })
-      .catch((error) => console.error(error));
+      this.TarefaDAO.listar() // recupera todas as tarefas do banco de dados
+        .then((tarefas) => {
+          if (tarefas.rowCount > 0) {
+            this.tarefas = tarefas; // atualiza a lista de tarefas
+            console.log('Lista de tarefas:');
+            this.tarefas.forEach((tarefa) => console.log(tarefa));
+          } else {
+            console.log('Não há tarefas cadastradas');
+          }
+          process.exit();
+        })
+        .catch((error) => {
+          console.error(error);
+          process.exit();
+        });
   }
+  
 }
 
 module.exports = ListaTarefas;
