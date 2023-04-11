@@ -69,15 +69,18 @@ async adicionar(descricao, data) {
     }
   }
 
-  async ler(id) {
-    const cliente = await this.pool.connect();
+  async buscar(id) {
+    const query = {
+      text: 'SELECT * FROM tarefas WHERE id = $1',
+      values: [id]
+    };
+
     try {
-      const result = await cliente.query('SELECT * FROM tarefas WHERE id=$1', [id]);
+      const result = await this.client.query(query);
       return result.rows[0];
-    } catch (e) {
-      throw e;
-    } finally {
-      cliente.release();
+    } catch (err) {
+      console.error('Erro ao buscar tarefa', err);
+      return null;
     }
   }
 
