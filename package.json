@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/izaque459/gerenciadorTarefas#readme",
   "dependencies": {
-    "commander": "^10.0.0"
+    "commander": "^10.0.0",
+    "pg": "^8.10.0"
   }
 }
