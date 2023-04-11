@@ -40,7 +40,7 @@ class ListaTarefas {
   listarTarefas() {
       this.TarefaDAO.listar() // recupera todas as tarefas do banco de dados
         .then((tarefas) => {
-          if (tarefas.rowCount > 0) {
+          if (tarefas) {
             this.tarefas = tarefas; // atualiza a lista de tarefas
             console.log('Lista de tarefas:');
             this.tarefas.forEach((tarefa) => console.log(tarefa));

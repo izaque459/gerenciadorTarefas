@@ -27,7 +27,7 @@ program
   .description('Edita uma tarefa existente')
   .action((id, descricao, data) => {
     gerenciador.atualizarTarefa(id, descricao, data);
-    console.log('Tarefa editada com sucesso!');
+  
   });
 
 program
