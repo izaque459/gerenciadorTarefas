@@ -1,7 +1,7 @@
 {
   "name": "gerenciadortarefas",
   "version": "1.0.0",
-  "description": "pequeno gerenciador de tarefas em linha de comando",
+  "descricao": "pequeno gerenciador de tarefas em linha de comando",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
