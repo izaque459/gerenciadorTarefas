@@ -20,7 +20,6 @@ program
   .description('Adiciona uma nova tarefa')
   .action((descricao, data) => {
     gerenciador.adicionarTarefa(descricao, data);
-    console.log('Tarefa adicionada com sucesso!');
   });
 
 program

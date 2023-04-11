@@ -8,14 +8,16 @@ class ListaTarefas {
   }
 
   adicionarTarefa(descricao, data) {
-    const tarefa = new Tarefa(descricao, data); // cria um novo objeto Tarefa
-    this.TarefaDAO.adicionar(tarefa) // persiste a tarefa no banco de dados
-      .then(() => {
-        this.tarefas.push(tarefa); // adiciona a tarefa na lista de tarefas
-        console.log('Tarefa adicionada a lista com sucesso!');
-      })
-      .catch((error) => console.error(error));
-  }
+    this.TarefaDAO.adicionar(descricao, data)
+        .then(() => {
+            console.log('Tarefa adicionada com sucesso!');
+            process.exit();
+        })
+        .catch((error) => {
+            console.error('Erro ao adicionar tarefa: ', error);
+            process.exit();
+        });
+}
 
   atualizarTarefa(tarefa) {
     this.TarefaDAO.atualizar(tarefa) // atualiza a tarefa no banco de dados

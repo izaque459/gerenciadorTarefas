@@ -20,25 +20,21 @@ class TarefaDAO {
     this.cliente.connect();
   }
 //criar tarefa ou salvar
-  async adicionar(tarefa) {
-    const { descricao, vencimento } = tarefa;
-    const cliente = await this.pool.connect();
+async adicionar(descricao, data) {
+    const query = {
+      text: 'INSERT INTO tarefas(descricao, vencimento) VALUES($1, $2)',
+      values: [descricao, data]
+    };
+  
     try {
-      await cliente.query('BEGIN');
-      const res = await cliente.query(
-        'INSERT INTO tarefas (descricao, vencimento) VALUES ($1, $2) RETURNING id',
-        [descricao, vencimento]
-      );
-      const id = res.rows[0].id;
-      await cliente.query('COMMIT');
-      return id;
-    } catch (e) {
-      await cliente.query('ROLLBACK');
-      throw e;
-    } finally {
-      cliente.release();
+      const result = await this.cliente.query(query);
+      return result;
+    } catch (err) {
+      console.error('Erro ao adicionar tarefa', err);
+      return null;
     }
   }
+  
 
   async atualizar(tarefa) {
     const { id, descricao, vencimento, conclusao } = tarefa;
