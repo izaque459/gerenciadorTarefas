@@ -19,10 +19,16 @@ class ListaTarefas {
         });
 }
 
-  atualizarTarefa(tarefa) {
-    this.TarefaDAO.atualizar(tarefa) // atualiza a tarefa no banco de dados
-      .then(() => console.log('Tarefa da lista atualizada com sucesso!'))
-      .catch((error) => console.error(error));
+  atualizarTarefa(id,descricao,data,concluida) {
+    this.TarefaDAO.atualizar(id,descricao,data,concluida) // atualiza a tarefa no banco de dados
+      .then(() => {
+        console.log('Tarefa da lista atualizada com sucesso!');
+        process.exit();
+      })
+      .catch((error) => {
+        console.error(error);
+        process.exit();
+      });
   }
 
   removerTarefa(id) {

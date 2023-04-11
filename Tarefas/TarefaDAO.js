@@ -36,21 +36,18 @@ async adicionar(descricao, data) {
   }
   
 
-  async atualizar(tarefa) {
-    const { id, descricao, vencimento, conclusao } = tarefa;
-    const cliente = await this.pool.connect();
+  async atualizar(id,descricao,data,concluida) {
+    const query = {
+      text: 'UPDATE tarefas SET descricao = $2, vencimento = $3, conclusao = $4 WHERE id = $1',
+      values: [id, descricao, data,concluida]
+    };
+
     try {
-      await cliente.query('BEGIN');
-      await cliente.query(
-        'UPDATE tarefas SET descricao=$1, vencimento=$2, conclusao=$3 WHERE id=$4',
-        [descricao, vencimento, conclusao, id]
-      );
-      await cliente.query('COMMIT');
-    } catch (e) {
-      await cliente.query('ROLLBACK');
-      throw e;
-    } finally {
-      cliente.release();
+      const result = await this.cliente.query(query);
+      return result.rows[0];
+    } catch (err) {
+      console.error('Erro ao atualizar tarefa', err);
+      return null;
     }
   }
 

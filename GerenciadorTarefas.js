@@ -23,10 +23,10 @@ program
   });
 
 program
-  .command('editar <id> <descricao> <data>')
+  .command('editar <id> <descricao> <data> <concluida>')
   .description('Edita uma tarefa existente')
-  .action((id, descricao, data) => {
-    gerenciador.atualizarTarefa(id, descricao, data);
+  .action((id, descricao, data,concluida) => {
+    gerenciador.atualizarTarefa(id, descricao, data, concluida);
   
   });
 
